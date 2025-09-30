@@ -1,8 +1,11 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException,FastAPI
 import os
 import logging
 import httpx
 import uuid
+
+
+app = FastAPI()
 
 router = APIRouter()
 logger = logging.getLogger("frejun")
@@ -54,3 +57,5 @@ async def initiate_call_manual(lead_id: str, from_number: str):
         logger.info(f"FreJun API response: {response.status_code}, {response.text}")
 
     return {"call_id": call_id, "to_number": to_number, "status": "initiated"}
+# Mount the router
+app.include_router(router)
