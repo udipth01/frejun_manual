@@ -50,6 +50,10 @@ async def initiate_call_manual(lead_id: str, from_number: str):
     
     call_id = str(uuid.uuid4())
     CALLS[call_id] = {"lead_id": lead_id, "to_number": to_number, "from_number": from_number}
+    from_number = from_number.strip()
+    if not from_number.startswith("+"):
+        from_number = f"+{from_number}"
+
     logger.info(f"Prepared call_id={call_id} payload: from {from_number} to {to_number}")
 
     # Trigger FreJun API
