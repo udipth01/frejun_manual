@@ -83,4 +83,16 @@ async def initiate_call_manual(lead_id: str, from_number: str):
 
     return {"call_id": call_id, "to_number": to_number, "status": "initiated"}
 
+@app.post("/frejun-flow")
+async def frejun_flow(payload: dict):
+    logger.info(f"FreJun incoming call event: {payload}")
+    return {"status": "ok"}
+
+@app.post("/frejun-handler")
+async def frejun_handler(payload: dict):
+    logger.info(f"FreJun outgoing call event: {payload}")
+    return {"status": "ok"}
+
+
 app.include_router(router)
+
